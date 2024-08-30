@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { ErrorResponse } from "../../../middlewares/errorMiddleware/erroMiddleware";
 import PixService from "../services/pix";
 import * as dotenv from 'dotenv'
@@ -8,7 +8,7 @@ const pixService = new PixService();
 const accessToken = process.env.ACESS_TOKEN;
 
 export default class PixController {
-  async post(req: Request, res: Response) {
+  async post(req: Request, res: Response, next: NextFunction) {
     try {
       if (!accessToken) {
         throw new ErrorResponse(500, 'Internal Server error, A001')
@@ -30,12 +30,16 @@ export default class PixController {
       if (!pixValue || !(typeof pixValue == 'number')) {
         throw new ErrorResponse(400, 'pixValue Required')
       }
-      
-      const newPixPayment = await pixService.create(accessToken, costumerName, costumerEmail, `Pagou um café ${coffeeType}`, pixValue);
+
+      const newPixPayment = await pixService.create(accessToken, costumerName, costumerEmail, `Pagou um café ${coffeeType} para Avelino (Doação)`, pixValue).catch((error)=>{
+        console.log(error);
+        throw new ErrorResponse(500,)
+      });
+
       return res.status(201).json({ pix: newPixPayment });
     } catch (error: any) {
-      throw new ErrorResponse(error.code, error.message);
+      console.log('aqui')
+      next(error)
     }
-
   }
 }

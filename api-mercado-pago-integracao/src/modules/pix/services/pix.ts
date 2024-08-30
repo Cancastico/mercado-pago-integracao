@@ -7,7 +7,6 @@ export default class PixService {
             accessToken: accessToken,
             options: {
                 timeout: 5000,
-                idempotencyKey: costumerName
             }
         });
 
@@ -18,11 +17,12 @@ export default class PixService {
             description,
             payment_method_id: 'pix',
             payer: {
+                nickname:costumerName,
                 email: costumerEmail
             },
         };
 
         // Step 6: Make the request
-        return payment.create({ body });
+        return payment.create({ body,  });
     }
 }

@@ -18,7 +18,11 @@ export class ErrorMiddleware {
         try {
           await Promise.resolve(fn(req, res, next));
         } catch (err) {
-          return next(err);
+          next((err: any) => res.status(err.code ?? 500).json({ error: err.message ?? 'Internal Server Error A000' }));
         }
       };
+      
 }
+
+
+
