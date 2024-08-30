@@ -32,5 +32,5 @@ app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
 
 
 app.listen(port, () => {
-  console.log(`API Integração Tray, Porta:${port}`)
+  console.log(`API Integração Mercado Pago, Porta:${port}`)
 })
