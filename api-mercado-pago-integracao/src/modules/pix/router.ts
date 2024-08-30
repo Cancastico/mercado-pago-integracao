@@ -6,7 +6,7 @@ const pixRouter = Router();
 
 
 pixRouter.post(
-  '',
+  '/',
   pixController.post
 );
 export { pixRouter };
