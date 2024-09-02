@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { Dispatch, SetStateAction, useState } from "react"
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
@@ -9,9 +9,14 @@ import pingado from "@/../public/pingado.png"
 import comleite from "@/../public/comleite.png"
 import gourmet from "@/../public/gourmet.png"
 import { CoffeeIcon } from "lucide-react"
+import { Option } from "@/models/option"
 
-export default function PayMeCoffe() {
-  const [selectedOption, setSelectedOption] = useState<{ label: string, description: string, value: number, image: StaticImageData }>({ label: 'Express', description: 'O café indispensavel de padóca de SP.', value: 2, image: pingado })
+type Props = {
+  selectedOption: Option,
+  setSelectedOption: Dispatch<SetStateAction<Option>>,
+  nextStep: () => void,
+}
+export default function PayMeCoffe({ selectedOption, setSelectedOption, nextStep }: Props) {
   const options: { label: string, description: string, value: number, image: StaticImageData }[] = [
     { label: 'Express', description: 'O café indispensavel de padóca de SP.', value: 2, image: pingado },
     { label: 'Com leite', description: 'O bom e velho classico aconchegante.', value: 5, image: comleite },
@@ -20,7 +25,7 @@ export default function PayMeCoffe() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle className="text-amber-900 font-semibold text-3xl flex flex-row gap-3 items-center">Pague-me um café <CoffeeIcon size={32}/> </CardTitle>
+        <CardTitle className="text-amber-900 font-semibold text-3xl flex flex-row gap-3 items-center">Pague-me um café <CoffeeIcon size={32} /> </CardTitle>
         <CardDescription>Escolha sua opção de café e faça uma doação para me apoiar.</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-6">
@@ -59,7 +64,7 @@ export default function PayMeCoffe() {
             <CoffeeIcon className="h-6 w-6 text-primary" />
             <span className="font-medium">Você selecionou: {selectedOption.label}</span>
           </div>
-          <Button variant="outline" className="shrink-0 bg-amber-900 hover:bg-amber-900/90 hover:text-white text-white">
+          <Button onClick={nextStep} variant="outline" className="shrink-0 bg-amber-900 hover:bg-amber-900/90 hover:text-white text-white">
             Pagar
           </Button>
         </div>
@@ -67,25 +72,3 @@ export default function PayMeCoffe() {
     </Card>
   )
 }
-
-// function CoffeeIcon(props: any) {
-//   return (
-//     <svg
-//       {...props}
-//       xmlns="http://www.w3.org/2000/svg"
-//       width="24"
-//       height="24"
-//       viewBox="0 0 24 24"
-//       fill="none"
-//       stroke="currentColor"
-//       strokeWidth="2"
-//       strokeLinecap="round"
-//       strokeLinejoin="round"
-//     >
-//       <path d="M10 2v2" />
-//       <path d="M14 2v2" />
-//       <path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1" />
-//       <path d="M6 2v2" />
-//     </svg>
-//   )
-// }

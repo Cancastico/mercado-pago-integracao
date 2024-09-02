@@ -8,7 +8,7 @@ const preferenceService = new PreferenceService(process.env.ACCESS_TOKEN!);
 
 export default class PreferenceController {
 
-  async credit(req: Request, res: Response) {
+  async create(req: Request, res: Response) {
     try {
       const { costumerName, costumerEmail, coffeeType, price }: { costumerName: string, costumerEmail: string, coffeeType: string, price: number, cardToken: string, issuerId: number } = req.body;
 
@@ -37,37 +37,6 @@ export default class PreferenceController {
       throw new ErrorResponse(error.code, error.message);
     }
   }
-
-  async debit(req: Request, res: Response) {
-    try {
-      const { costumerName, costumerEmail, coffeeType, price }: { costumerName: string, costumerEmail: string, coffeeType: string, price: number, cardToken: string, issuerId: number } = req.body;
-
-      if (!costumerName) {
-        throw new ErrorResponse(400, 'costumerName Required');
-      }
-
-      if (!costumerEmail) {
-        throw new ErrorResponse(400, 'costumerEmail Required');
-      }
-
-      if (!coffeeType) {
-        throw new ErrorResponse(400, 'coffeeType Required');
-      }
-
-      if (!price || !(typeof price == 'number')) {
-        throw new ErrorResponse(400, 'pixprice Required');
-      }
-
-      const newPaymentCard = await preferenceService.create([{id:'1',quantity:1,title:coffeeType,unit_price:price}],{email:costumerEmail,identificationType:'CPF',identificationNumber:''} ).catch(() => {
-        throw new ErrorResponse(500,)
-      });
-
-      return res.status(201).json({ paymentCard: newPaymentCard });
-    } catch (error: any) {
-      throw new ErrorResponse(error.code, error.message);
-    }
-  }
-
 
   async get(req: Request, res: Response) {
     try {

@@ -7,12 +7,8 @@ const preferenceRouter = Router();
 
 
 preferenceRouter.post(
-  '/credit',
-  preferenceController.credit
-);
-preferenceRouter.post(
-  '/debit',
-  preferenceController.debit
+  '/',
+  preferenceController.create
 );
 preferenceRouter.get(
   '/:id',

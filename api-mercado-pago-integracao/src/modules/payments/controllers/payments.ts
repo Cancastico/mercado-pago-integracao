@@ -2,16 +2,25 @@ import * as dotenv from 'dotenv';
 import { Request, Response } from "express";
 import { ErrorResponse } from "../../../middlewares/errorMiddleware/erroMiddleware";
 import PaymentService from "../services/payments";
+import { paymentMethods } from '../../../models/paymentMethods';
 dotenv.config();
+
+interface PaymentDetails extends paymentMethods {
+  costumerName: string;
+  costumerEmail: string;
+  coffeeType: string;
+  price: number;
+  token?:string, 
+}
 
 const paymentService = new PaymentService(process.env.ACCESS_TOKEN!);
 
 export default class PaymentsController {
 
 
-  async pix(req: Request, res: Response) {
+  async create(req: Request, res: Response) {
     try {
-      const { costumerName, costumerEmail, coffeeType, price }: { costumerName: string, costumerEmail: string, coffeeType: string, price: number } = req.body;
+      const { costumerName, costumerEmail, coffeeType, price, method, token }: PaymentDetails = req.body;
 
       if (!costumerName) {
         throw new ErrorResponse(400, 'costumerName Required');
@@ -26,14 +35,17 @@ export default class PaymentsController {
       }
 
       if (!price || !(typeof price == 'number')) {
-        throw new ErrorResponse(400, 'pixprice Required');
+        throw new ErrorResponse(400, 'price Required');
+      }
+      if(method != 'pix' && !token){
+        throw new ErrorResponse(400, 'Token Required');
       }
 
-      const newPixPayment = await paymentService.create(costumerEmail, `Pagou um café ${coffeeType} para Avelino (Doação)`, price).catch(() => {
-        throw new ErrorResponse(500,)
+      const newPayment = await paymentService.create(costumerEmail, `Pagou um café ${coffeeType} para Avelino (Doação)`, price, method).then(response => response).catch((error) => {
+        throw new ErrorResponse(error.status, error.message)
       });
 
-      return res.status(201).json({ pix: newPixPayment });
+      return res.status(201).json({ pix: newPayment });
     } catch (error: any) {
       throw new ErrorResponse(error.code, error.message);
     }

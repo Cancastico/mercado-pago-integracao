@@ -18,6 +18,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className + 'bg-inherit/30'} style={{backgroundImage:`url(${bgCoffe.src})`}}>{children}</body>
+
     </html>
   );
 }

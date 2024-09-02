@@ -6,8 +6,8 @@ const paymentRouter = Router();
 
 
 paymentRouter.post(
-  '/pix',
-  paymentsController.pix
+  '/',
+  paymentsController.create
 );
 paymentRouter.get(
   '/:id',
