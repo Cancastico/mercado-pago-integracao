@@ -9,6 +9,14 @@ paymentRouter.post(
   '/pix',
   paymentsController.pix
 );
+paymentRouter.post(
+  '/credit',
+  paymentsController.credit
+);
+paymentRouter.post(
+  '/debit',
+  paymentsController.debit
+);
 paymentRouter.get(
   '/:id',
   paymentsController.get

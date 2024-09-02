@@ -1,17 +1,18 @@
-import { NextFunction, Request, Response } from "express";
+import * as dotenv from 'dotenv';
+import { Request, Response } from "express";
+import { ErrorResponse } from "../../../middlewares/errorMiddleware/erroMiddleware";
 import PaymentMethodsService from "../service/paymentMethodsService";
-import * as dotenv from 'dotenv'
 dotenv.config();
 
 const paymentMethodsService = new PaymentMethodsService(process.env.ACCESS_TOKEN!);
 export default class PaymentMethodController {
 
-  async get(req:Request,res: Response, next: NextFunction) {
+  async get(_req:Request,res: Response) {
     try {
 
       res.status(200).json(await paymentMethodsService.get());
-    } catch (error) {
-      next(error)
+    } catch (error:any) {
+      throw new ErrorResponse(error.code,error.message);
     }
   }
 }
