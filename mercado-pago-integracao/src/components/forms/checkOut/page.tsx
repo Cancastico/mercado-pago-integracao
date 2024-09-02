@@ -12,27 +12,10 @@ type Props = {
   item: Option
 }
 
-const paymentSchema = z.object({
-  cardholderName: z.string().min(1, "Nome do titular é obrigatório"),
-  cardNumber: z.string().min(16, "Número do cartão deve ter 16 dígitos"),
-  expirationDate: z.string().regex(/^(0[1-9]|1[0-2])\/?([0-9]{2})$/, "Data de validade inválida"),
-  securityCode: z.string().min(3, "Código de segurança deve ter 3 dígitos"),
-  identificationType: z.string().min(1, "Tipo de documento é obrigatório"),
-  identificationNumber: z.string().min(1, "Número do documento é obrigatório"),
-});
 
-type PaymentFormData = z.infer<typeof paymentSchema>;
 
 const Checkout = ({ item }: Props) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue
-  } = useForm<PaymentFormData>({
-    resolver: zodResolver(paymentSchema),
-    defaultValues: { identificationType: 'CPF' }
-  });
+
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -147,59 +130,39 @@ const Checkout = ({ item }: Props) => {
 
   return (
     <div className='max-w-[400px] bg-white rounded-lg p-5 mx-auto mt-[15vh]'>
-      <form className='flex flex-col gap-5' id="form-checkout" onSubmit={handleSubmit(() => {})}>
-        <Input
-          type="text"
-          id="form-checkout__cardholderName"
-          placeholder="Titular do cartão"
-          {...register('cardholderName')}
-        />
-        {errors.cardholderName && <span>{errors.cardholderName.message}</span>}
+      <form id="form-checkout">
+        <label>Numero Cartão</label>
+        <Input className='w-full' id="form-checkout__cardNumber"></Input>
 
-        <Input
-          type="text"
-          id="form-checkout__cardNumber"
-          placeholder="Número do cartão"
-          {...register('cardNumber')}
-        />
-        {errors.cardNumber && <span>{errors.cardNumber.message}</span>}
+        <label>Data Vencimento</label>
+        <Input className='w-full' id="form-checkout__expirationDate"></Input>
 
-        <Input
-          type="text"
-          id="form-checkout__expirationDate"
-          placeholder="Data de vencimento (MM/AA)"
-          {...register('expirationDate')}
-        />
-        {errors.expirationDate && <span>{errors.expirationDate.message}</span>}
+        <label>CNC</label>
+        <Input className='w-full' id="form-checkout__securityCode"></Input>
 
-        <Input
-          type="text"
-          id="form-checkout__securityCode"
-          placeholder="Código de segurança"
-          {...register('securityCode')}
-        />
-        {errors.securityCode && <span>{errors.securityCode.message}</span>}
+        <label>Nome Cartão</label>
+        <Input className='w-full' type="text" id="form-checkout__cardholderName" />
 
-        <Select onValueChange={(value) => setValue('identificationType', value)}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Selecione o tipo de documento" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="CPF">CPF</SelectItem>
-            <SelectItem value="CNPJ">CNPJ</SelectItem>
-          </SelectContent>
-        </Select>
-        {errors.identificationType && <span>{errors.identificationType.message}</span>}
+        <select className='w-full' id="form-checkout__issuer">
+        </select>
 
-        <Input
-          type="text"
-          id="form-checkout__identificationNumber"
-          placeholder="Número do documento"
-          {...register('identificationNumber')}
-        />
-        {errors.identificationNumber && <span>{errors.identificationNumber.message}</span>}
+        <label>Parcelar</label>
+        <select className='w-full' id="form-checkout__installments">
+          <option value="1">1</option>
+        </select>
 
-        <Button id="form-checkout__submit" type="submit">Pagar</Button>
+        <label>DOCUMENTO</label>
+        <select className='w-full' id="form-checkout__identificationType">
+          <option value="CPF">CPF</option>
+        </select>
+
+        <label>NUMERO CPF</label>
+        <Input className='w-full' type="text" id="form-checkout__identificationNumber" />
+
+        <label>EMAIL</label>
+        <Input className='w-full' type="email" id="form-checkout__cardholderEmail" />
+
+        <Button type="submit" id="form-checkout__submit">Pagar</Button>
       </form>
     </div>
   );
