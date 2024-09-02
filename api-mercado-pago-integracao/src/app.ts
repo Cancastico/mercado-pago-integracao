@@ -14,6 +14,7 @@ app.use(express.json());
 app.use(router);
 
 app.use((err: Error, _req: Request, res: Response, _next: NextFunction) => {
+  console.log(err);
   if (err instanceof ErrorResponse) {
     return res.status(err.code).json({
       error: err.message,
