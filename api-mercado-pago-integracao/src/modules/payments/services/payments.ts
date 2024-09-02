@@ -11,10 +11,6 @@ export default class PaymentService {
     costumerEmail: string,
     description: string,
     transactionAmount: number,
-    type: 'pix' | 'credit_card' | 'debit_card',
-    installments?: 1,
-    cardToken?: string,
-    issuerId?: number
   ) {
 
     const payment = new Payment(this.client);
@@ -22,23 +18,12 @@ export default class PaymentService {
       body: {
         transaction_amount: transactionAmount,
         description,
-        payment_method_id: type,
+        payment_method_id: 'pix',
         payer: {
           email: costumerEmail
         },
       }
     };
-
-
-    if (type === 'credit_card' || type === 'debit_card') {
-      if (!cardToken || !issuerId) {
-        throw new Error("Para pagamentos com cartão de crédito ou débito, 'cardToken' e 'issuerId' são obrigatórios.");
-      }
-
-      paymentData.body.token = cardToken;
-      paymentData.body.issuer_id = issuerId;
-      paymentData.body.installments = installments;
-    }
 
     // Step 6: Make the request
     return payment.create(paymentData);
