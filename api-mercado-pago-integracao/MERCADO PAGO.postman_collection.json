@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "f32e2a15-d621-4897-925a-71a9bd0a14f3",
+		"name": "MERCADO PAGO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "28709134",
+		"_collection_link": "https://softclever.postman.co/workspace/Sirius-Web~1486f138-0a0b-47ff-8bcc-866af89847df/collection/28709134-f32e2a15-d621-4897-925a-71a9bd0a14f3?action=share&source=collection_link&creator=28709134"
+	},
+	"item": [
+		{
+			"name": "CREATE PIX",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"costumerName\": \"AvelinoTeste\",\r\n    \"costumerEmail\": \"avelino@teste.com\",\r\n    \"coffeeType\": \"Expresso\",\r\n    \"value\": 0.01\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:5000/payments/pix"
+			},
+			"response": []
+		},
+		{
+			"name": "FIND METHODS",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "localhost:5000/methods"
+			},
+			"response": []
+		},
+		{
+			"name": "CAPTURE PAYMENT",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5000/payments/capture/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"payments",
+						"capture",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1326496779"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FIND PAYMENT",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/payments/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"payments",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "1326496779"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "FINDMANY PAYMENTS",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "localhost:5000/payments"
+			},
+			"response": []
+		},
+		{
+			"name": "CANCEL PAYMENT",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:5000/payments/:id",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"payments",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
