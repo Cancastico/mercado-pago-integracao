@@ -66,4 +66,11 @@
   body {
     @apply bg-background text-foreground;
   }
+  #form-checkout {
+    @apply flex flex-col max-w-[600px]
+  }
+
+  .container {
+    @apply h-[18px] inline-block border-black border-[1px] px-1 py-2 rounded-xl
+  }
 }

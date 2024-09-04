@@ -10,7 +10,7 @@ import Checkout from "@/components/forms/checkOut/page"
 dotenv.config();
 
 export default function Component() {
-  const [selectedOption, setSelectedOption] = useState<Option>({ label: 'Express', description: 'O café indispensavel de padóca de SP.', value: 2, image: pingado })
+  const [selectedOption, setSelectedOption] = useState<Option>({ label: 'Expresso', description: 'O café indispensavel de padóca de SP.', value: 2, image: pingado })
   const [step, setStep] = useState<'1' | '2'>('1')
   function nextStep() {
     setStep('2')
