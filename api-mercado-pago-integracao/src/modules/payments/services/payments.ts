@@ -1,35 +1,33 @@
 import MercadoPagoConfig, { Payment } from "mercadopago";
-import { PaymentCreateData } from "mercadopago/dist/clients/payment/create/types";
+import { PaymentCreateData, PaymentCreateRequest } from "mercadopago/dist/clients/payment/create/types";
 import { ErrorResponse } from "../../../middlewares/errorMiddleware/erroMiddleware";
 
 
 export default class PaymentService {
   private client;
+
   constructor(accessToken: string) {
     this.client = new MercadoPagoConfig({ accessToken });
   }
+
   create(
-    costumerEmail: string,
-    description: string,
-    transactionAmount: number,
-    paymentMethodId:"debel"|"elo"|"debvisa"|"visa"|"amex"|"maestro"|"debmaster"|"master"|"hipercard"|"debcabal"|"cabal"|"pix",
+    { installments, issuer_id, payer, payment_method_id, transaction_amount, token }: PaymentCreateRequest
   ) {
     try {
       const payment = new Payment(this.client);
       const paymentData: PaymentCreateData = {
         body: {
-          transaction_amount: transactionAmount,
-          description,
-          payment_method_id: paymentMethodId,
-          payer: {
-            email: costumerEmail
-          },
+          installments,
+          issuer_id,
+          payer,
+          payment_method_id,
+          token,
+          transaction_amount,
         }
       };
-  
-      // Step 6: Make the request
+
       return payment.create(paymentData);
-    } catch (error:any) {
+    } catch (error: any) {
       console.log(error)
       throw new ErrorResponse(error.code, error.message);
     }

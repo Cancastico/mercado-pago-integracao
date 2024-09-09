@@ -1,16 +1,14 @@
 "use client"
 
-import pingado from "@/../public/pingado.png"
+import Checkout from "@/components/forms/checkOut/page"
 import PayMeCoffe from "@/components/forms/payMeCoffe/page"
 import { Option } from "@/models/option"
-import { useEffect, useState } from "react"
-import { loadMercadoPago } from "@mercadopago/sdk-js";
-import dotenv from 'dotenv';
-import Checkout from "@/components/forms/checkOut/page"
+import dotenv from 'dotenv'
+import { useState } from "react"
 dotenv.config();
 
 export default function Component() {
-  const [selectedOption, setSelectedOption] = useState<Option>({ label: 'Expresso', description: 'O café indispensavel de padóca de SP.', value: 2, image: pingado })
+  const [selectedOption, setSelectedOption] = useState<Option>({ label: 'TESTE 1', description: '', value: 2, image: null })
   const [step, setStep] = useState<'1' | '2'>('1')
   function nextStep() {
     setStep('2')
@@ -26,9 +24,9 @@ export default function Component() {
         ></PayMeCoffe>
       )}
       {step == '2' && (
-        <>
+        <div className="max-w-[40dvw] overflow-y-auto bg-white rounded-l scroll-smooth scrollbar-thumb-rounded-full scrollbar-track-rounded-full scrollbar-w-1 scrollbar scrollbar-track-transparent scrollbar-thumb-red-600 hover:scrollbar-track-[#f1f5f9]">
           <Checkout item={selectedOption} />
-        </>
+        </div>
       )}
     </section>
   )

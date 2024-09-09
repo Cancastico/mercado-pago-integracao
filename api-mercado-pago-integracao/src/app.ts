@@ -2,12 +2,15 @@ import express, { NextFunction, Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 import { ErrorResponse } from './middlewares/errorMiddleware/erroMiddleware';
 import { router } from './router';
+import cors from 'cors';
 
 dotenv.config();
 
 const port = process.env.PORT
 
 const app = express()
+
+app.use(cors())
 
 app.use(express.json());
 
