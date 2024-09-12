@@ -8,22 +8,181 @@
 	},
 	"item": [
 		{
-			"name": "CREATE PIX",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"costumerName\": \"AvelinoTeste\",\r\n    \"costumerEmail\": \"avelino@teste.com\",\r\n    \"coffeeType\": \"Expresso\",\r\n    \"value\": 0.01\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+			"name": "PAYMENTS",
+			"item": [
+				{
+					"name": "CREATE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"costumerName\": \"AvelinoTeste\",\r\n    \"costumerEmail\": \"avelino@teste.com\",\r\n    \"coffeeType\": \"Expresso\",\r\n    \"price\": 0.01,\r\n    \"method\":\"visa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:5000/payments"
+					},
+					"response": []
 				},
-				"url": "localhost:5000/payments/pix"
-			},
-			"response": []
+				{
+					"name": "CAPTURE PAYMENT",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/payments/capture/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"payments",
+								"capture",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1326496779"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FIND PAYMENT",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/payments/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"payments",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1326496779"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CANCEL PAYMENT",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/payments/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"payments",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FINDMANY PAYMENTS",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:5000/payments"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PREFERENCE",
+			"item": [
+				{
+					"name": "CREATE",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"costumerName\": \"AvelinoTeste\",\r\n    \"costumerEmail\": \"avelino@teste.com\",\r\n    \"coffeeType\": \"Expresso\",\r\n    \"price\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:5000/preference"
+					},
+					"response": []
+				},
+				{
+					"name": "FIND PREFERENCE",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/preferences/:id",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"preferences",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1961866566-f51db5c9-575b-4b0b-9b1e-53c5e02d9d00"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FINDMANY PREFERENCES",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "localhost:5000/preferences"
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "FIND METHODS",
@@ -43,103 +202,6 @@
 					}
 				},
 				"url": "localhost:5000/methods"
-			},
-			"response": []
-		},
-		{
-			"name": "CAPTURE PAYMENT",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:5000/payments/capture/:id",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"payments",
-						"capture",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "1326496779"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "FIND PAYMENT",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:5000/payments/:id",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"payments",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": "1326496779"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "FINDMANY PAYMENTS",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": "localhost:5000/payments"
-			},
-			"response": []
-		},
-		{
-			"name": "CANCEL PAYMENT",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "localhost:5000/payments/:id",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"payments",
-						":id"
-					],
-					"variable": [
-						{
-							"key": "id",
-							"value": ""
-						}
-					]
-				}
 			},
 			"response": []
 		}
