@@ -26,7 +26,6 @@ const Checkout = ({ item }: Props) => {
           payment_method_id: param.formData.payment_method_id,
           transaction_amount: param.formData.transaction_amount,
           token: param.formData.token,
-
         })
       }}
     />
