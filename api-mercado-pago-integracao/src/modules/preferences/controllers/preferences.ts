@@ -10,15 +10,8 @@ export default class PreferenceController {
 
   async create(req: Request, res: Response) {
     try {
-      const { costumerName, costumerEmail, coffeeType, price }: { costumerName: string, costumerEmail: string, coffeeType: string, price: number, cardToken: string, issuerId: number } = req.body;
+      const {coffeeType, price }: { coffeeType: string, price: number, cardToken: string, issuerId: number } = req.body;
 
-      if (!costumerName) {
-        throw new ErrorResponse(400, 'costumerName Required');
-      }
-
-      if (!costumerEmail) {
-        throw new ErrorResponse(400, 'costumerEmail Required');
-      }
 
       if (!coffeeType) {
         throw new ErrorResponse(400, 'coffeeType Required');
@@ -28,7 +21,7 @@ export default class PreferenceController {
         throw new ErrorResponse(400, 'pixprice Required');
       }
 
-      const newPaymentCard = await preferenceService.create([{id:'1',quantity:1,title:coffeeType,unit_price:price}],{email:costumerEmail,identificationType:'CPF',identificationNumber:''} ).catch(() => {
+      const newPaymentCard = await preferenceService.create([{id:'1',quantity:1,title:coffeeType,unit_price:price}] ).catch(() => {
         throw new ErrorResponse(500,)
       });
 

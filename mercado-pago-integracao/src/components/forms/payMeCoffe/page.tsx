@@ -13,21 +13,21 @@ import { Option } from "@/models/option"
 
 type Props = {
   selectedOption: Option,
-  setSelectedOption: Dispatch<SetStateAction<Option>>,
+  setSelectedOption: (data: Option) => void,
   nextStep: () => void,
 }
 export default function PayMeCoffe({ selectedOption, setSelectedOption, nextStep }: Props) {
-  const options: Option[] = [
-    { label: 'TESTE 1', description: '', value: 2, image: null },
-    { label: 'TESTE 2', description: '', value: 5, image: null },
-    { label: 'TESTE 3', description: '', value: 10, image: null }
-  ]
-
-  // const options: { label: string, description: string, value: number, image: StaticImageData }[] = [
-  //   { label: 'Expresso', description: 'O café indispensavel da padóca de SP.', value: 2, image: pingado },
-  //   { label: 'Com leite', description: 'O bom e velho classico aconchegante.', value: 5, image: comleite },
-  //   { label: 'Gourmet', description: 'Aquele café especial pra animar seu dia.', value: 10, image: gourmet }
+  // const options: Option[] = [
+  //   { label: 'TESTE 1', description: '', value: 2, image: null },
+  //   { label: 'TESTE 2', description: '', value: 5, image: null },
+  //   { label: 'TESTE 3', description: '', value: 10, image: null }
   // ]
+
+  const options: { label: string, description: string, value: number, image: StaticImageData }[] = [
+    { label: 'Expresso', description: 'O café indispensavel da padóca de SP.', value: 2, image: pingado },
+    { label: 'Com leite', description: 'O bom e velho classico aconchegante.', value: 5, image: comleite },
+    { label: 'Gourmet', description: 'Aquele café especial pra animar seu dia.', value: 10, image: gourmet }
+  ]
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
@@ -47,14 +47,14 @@ export default function PayMeCoffe({ selectedOption, setSelectedOption, nextStep
               return (
                 <SelectItem key={index} value={option.label}>
                   <div className="flex items-center gap-4">
-                    {/* <Image
+                    <Image
                       src={option.image}
                       alt="Pingado"
                       width={30}
                       height={30}
                       className="rounded-md"
                       style={{ aspectRatio: "30/30", objectFit: "cover" }}
-                    /> */}
+                    />
                     <div>
                       <div className="flex items-center gap-2">
                         <h4 className="font-medium">{option.label}</h4>

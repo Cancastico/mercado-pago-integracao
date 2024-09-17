@@ -9,7 +9,7 @@ export default class PreferenceService {
     this.client = new MercadoPagoConfig({ accessToken });
   }
   
-  create(items: Items[], payer: { email: string, name?: string, surname?: string, identificationType: string, identificationNumber: string }) {
+  create(items: Items[]) {
     const preference: PreferenceCreateData = {
       body: {
         items: items.map((item, index) => ({
@@ -19,21 +19,12 @@ export default class PreferenceService {
           quantity: item.quantity,
         })),
         additional_info: `Um incentivo ao desenvolvedor avelino, tipos de incentivo: ${items.map(item => item.title)}`,
-        payer: {
-          email: payer.email,
-          name: payer.name,
-          surname: payer.surname,
-          identification: {
-            type: payer.identificationType,
-            number: payer.identificationNumber,
-          },
-        },
-        back_urls: {
-          success: 'https://www.your-site.com/success',
-          failure: 'https://www.your-site.com/failure',
-          pending: 'https://www.your-site.com/pending',
-        },
-        auto_return: 'approved',
+        // back_urls: {
+        //   success: 'https://www.your-site.com/success',
+        //   failure: 'https://www.your-site.com/failure',
+        //   pending: 'https://www.your-site.com/pending',
+        // },
+        // auto_return: 'approved',
       }
     };
 
