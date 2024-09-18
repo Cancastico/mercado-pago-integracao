@@ -1,3 +1,3 @@
 import { StaticImageData } from "next/image";
 
-export interface Option { label: string, description: string, value: number, image: StaticImageData|null }
+export interface Option { id: number, label: string, description: string, value: number, image: StaticImageData | null }

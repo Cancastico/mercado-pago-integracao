@@ -10,7 +10,7 @@ export default class PreferenceController {
 
   async create(req: Request, res: Response) {
     try {
-      const {coffeeType, price }: { coffeeType: string, price: number, cardToken: string, issuerId: number } = req.body;
+      const {coffeeType, price, id }: { coffeeType: string, price: number, id:number } = req.body;
 
 
       if (!coffeeType) {
@@ -21,11 +21,11 @@ export default class PreferenceController {
         throw new ErrorResponse(400, 'pixprice Required');
       }
 
-      const newPaymentCard = await preferenceService.create([{id:'1',quantity:1,title:coffeeType,unit_price:price}] ).catch(() => {
-        throw new ErrorResponse(500,)
+      const newPreference = await preferenceService.create([{id: id.toString(),quantity:1,title:coffeeType,unit_price:price}] ).catch(() => {
+        throw new ErrorResponse(500,'Erro ao tentar gerar preference')
       });
 
-      return res.status(201).json({ paymentCard: newPaymentCard });
+      return res.status(201).json({ preference: newPreference });
     } catch (error: any) {
       throw new ErrorResponse(error.code, error.message);
     }

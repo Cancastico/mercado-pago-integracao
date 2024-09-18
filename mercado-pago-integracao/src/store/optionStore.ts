@@ -8,7 +8,7 @@ type OptionState = {
 };
 
 const useOption = create<OptionState>((set) => ({
-    data: { label: 'Expresso', description: 'O café indispensavel da padóca de SP.', value: 2, image: pingado },
+    data: { id: 1, label: 'Expresso', description: 'O café indispensavel da padóca de SP.', value: 2, image: pingado },
     setData: (data: Option) => set({ data }),
 }));
 

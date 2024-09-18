@@ -5,6 +5,7 @@ import { useOption } from "@/store/optionStore";
 
 export default function Page() {
   const { data } = useOption();
+  console.log(data);
   return (
     <section className="p-5 flex gap-5 justify-center">
       <div className="w-1/2 bg-white rounded-lg px-5">

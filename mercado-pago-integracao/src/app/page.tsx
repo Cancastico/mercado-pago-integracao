@@ -17,7 +17,6 @@ export default function Component() {
           selectedOption={data}
           setSelectedOption={setData}
           nextStep={() => {router.push('/payment') }}
-
         ></PayMeCoffe>
     </section>
   )

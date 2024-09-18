@@ -1,22 +1,21 @@
 import { Router } from "express";
 import PreferenceController from "./controllers/preferences";
+import { ErrorMiddleware } from "../../middlewares/errorMiddleware/erroMiddleware";
 
+const errorMiddleware = new ErrorMiddleware();
 const preferenceController = new PreferenceController()
 const preferenceRouter = Router();
 
 
 
 preferenceRouter.post(
-  '/',
-  preferenceController.create
+  '/', errorMiddleware.handleAsync(preferenceController.create)
 );
 preferenceRouter.get(
-  '/:id',
-  preferenceController.get
+  '/:id', errorMiddleware.handleAsync(preferenceController.get)
 );
 preferenceRouter.get(
-  '/',
-  preferenceController.search
+  '/', errorMiddleware.handleAsync(preferenceController.search)
 );
 
 // preferenceRouter.put(

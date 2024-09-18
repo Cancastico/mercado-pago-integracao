@@ -1,28 +1,30 @@
 import { Router } from "express";
 import PaymentsController from "./controllers/payments";
+import { ErrorMiddleware } from "../../middlewares/errorMiddleware/erroMiddleware";
 
+const errorMiddleware = new ErrorMiddleware();
 const paymentsController = new PaymentsController()
 const paymentRouter = Router();
 
 
 paymentRouter.post(
   '/',
-  paymentsController.create
+  errorMiddleware.handleAsync(paymentsController.create)
 );
 paymentRouter.get(
   '/:id',
-  paymentsController.get
+  errorMiddleware.handleAsync(paymentsController.get)
 );
 paymentRouter.get(
   '/',
-  paymentsController.search
+  errorMiddleware.handleAsync(paymentsController.search)
 );
 paymentRouter.get(
   '/capture/:id',
-  paymentsController.capture
+  errorMiddleware.handleAsync(paymentsController.capture)
 );
 paymentRouter.delete(
   '/:id',
-  paymentsController.cancel
+  errorMiddleware.handleAsync(paymentsController.cancel)
 );
 export { paymentRouter };

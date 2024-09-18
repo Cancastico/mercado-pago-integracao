@@ -24,7 +24,7 @@
     "clsx": "^2.1.1",
     "dotenv": "^16.4.5",
     "lucide-react": "^0.436.0",
-    "mercadopago": "^2.0.14",
+    "mercadopago": "^2.0.15",
     "next": "^14.2.7",
     "react": "^18",
     "react-dom": "^18",

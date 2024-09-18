@@ -17,16 +17,11 @@ type Props = {
   nextStep: () => void,
 }
 export default function PayMeCoffe({ selectedOption, setSelectedOption, nextStep }: Props) {
-  // const options: Option[] = [
-  //   { label: 'TESTE 1', description: '', value: 2, image: null },
-  //   { label: 'TESTE 2', description: '', value: 5, image: null },
-  //   { label: 'TESTE 3', description: '', value: 10, image: null }
-  // ]
 
-  const options: { label: string, description: string, value: number, image: StaticImageData }[] = [
-    { label: 'Expresso', description: 'O café indispensavel da padóca de SP.', value: 2, image: pingado },
-    { label: 'Com leite', description: 'O bom e velho classico aconchegante.', value: 5, image: comleite },
-    { label: 'Gourmet', description: 'Aquele café especial pra animar seu dia.', value: 10, image: gourmet }
+  const options: Option[] = [
+    { id: 1, label: 'Expresso', description: 'O café indispensavel da padóca de SP.', value: 2, image: pingado },
+    { id: 2, label: 'Com leite', description: 'O bom e velho classico aconchegante.', value: 5, image: comleite },
+    { id: 3, label: 'Gourmet', description: 'Aquele café especial pra animar seu dia.', value: 10, image: gourmet }
   ]
   return (
     <Card className="w-full max-w-md mx-auto">
@@ -34,7 +29,7 @@ export default function PayMeCoffe({ selectedOption, setSelectedOption, nextStep
         <CardTitle className=" font-semibold text-3xl flex flex-row gap-3 items-center">
           Pagamentos
           {/* <CoffeeIcon size={32} /> */}
-           </CardTitle>
+        </CardTitle>
         <CardDescription>Escolha sua opção.</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-6">
@@ -48,7 +43,7 @@ export default function PayMeCoffe({ selectedOption, setSelectedOption, nextStep
                 <SelectItem key={index} value={option.label}>
                   <div className="flex items-center gap-4">
                     <Image
-                      src={option.image}
+                      src={option.image!}
                       alt="Pingado"
                       width={30}
                       height={30}
