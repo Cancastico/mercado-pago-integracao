@@ -1,11 +1,15 @@
 "use client";
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Option } from '@/models/option';
 import { PreferenceResponse } from '@/models/preference';
 import PaymentCreate from '@/services/fetchs/payments/create';
 import PreferenceCreate from '@/services/fetchs/preference/create';
-import { initMercadoPago, Payment } from '@mercadopago/sdk-react';
+import { initMercadoPago, Payment, StatusScreen } from '@mercadopago/sdk-react';
+import { CircleCheck, Copy, CopyCheck } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { toast } from 'react-toastify';
 
 type Props = {
   item: Option;
@@ -15,6 +19,7 @@ const Checkout = ({ item }: Props) => {
   const [preference, setPreference] = useState<PreferenceResponse>();
   const [isLoading, setIsLoading] = useState(true);
   const [paymentData, setPaymentData] = useState<PaymentData | null>(null);
+  const [hasCopy, setHasCopy] = useState(false);
 
   // Inicializar MercadoPago com a chave pública
   initMercadoPago(process.env.NEXT_PUBLIC_KEY!, { locale: 'pt-BR' });
@@ -56,36 +61,30 @@ const Checkout = ({ item }: Props) => {
 
   // Renderizar QR code ou confirmação de pagamento
   if (paymentData) {
-    if (paymentData.payment_method_id === 'pix') {
-      // Mostrar QR code e instruções para pagamento via PIX
-      return (
-        <div className="flex flex-col items-center">
-          <h2 className="text-xl font-semibold mb-4">Pagamento via PIX</h2>
-          <Image
-            src={`data:image/png;base64,${paymentData.point_of_interaction.transaction_data.qr_code_base64}`}
-            width={300}
-            height={300}
-            alt="QR Code PIX"
-          />
-          <p className="mt-4 text-gray-700">
-            Escaneie o QR code acima com o seu aplicativo bancário para realizar o pagamento.
-          </p>
-          <p className="mt-2 text-gray-700">Ou copie o código abaixo:</p>
-          <p className="mt-2 font-mono text-gray-800 bg-gray-100 p-2 rounded break-all">
-            {paymentData.point_of_interaction.transaction_data.qr_code}
-          </p>
-        </div>
-      );
-    } else {
-      // Confirmação de pagamento com cartão
-      return (
-        <div className="flex flex-col items-center">
-          <h2 className="text-xl font-semibold mb-4">Pagamento Concluído</h2>
-          <p className="mt-4 text-green-600">O pagamento foi realizado com sucesso!</p>
-          <p className="mt-2 text-gray-700">Número de Transação: {paymentData.id}</p>
-        </div>
-      );
-    }
+
+    return (
+      <StatusScreen
+        initialization={{ paymentId: paymentData.id.toString() }}
+      />
+  );
+
+    // if (paymentData.payment_method_id === 'pix') {
+    //   // Mostrar QR code e instruções para pagamento via PIX
+    //   return (
+    //       <StatusScreen
+    //         initialization={{ paymentId: paymentData.id.toString() }}
+    //       />
+    //   );
+    // } else {
+    //   // Confirmação de pagamento com cartão
+    //   return (
+    //     <div className="flex flex-col items-center">
+    //       <h2 className="text-xl font-semibold mb-4">Pagamento Concluído</h2>
+    //       <p className="mt-4 text-green-600">O pagamento foi realizado com sucesso!</p>
+    //       <p className="mt-2 text-gray-700">Número de Transação: {paymentData.id}</p>
+    //     </div>
+    //   );
+    // }
   }
 
   return (
@@ -98,9 +97,9 @@ const Checkout = ({ item }: Props) => {
         paymentMethods: {
           bankTransfer: "all",
           creditCard: "all",
-          maxInstallments:1
+          maxInstallments: 1
         },
-        
+
       }}
       onReady={() => { }}
       onSubmit={async (param) => {

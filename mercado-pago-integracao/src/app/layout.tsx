@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import { Toastify } from "@/components/toastify";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,10 +17,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body 
-      className={inter.className + ' bg-zinc-200'} 
+      <body
+        className={inter.className + ' bg-zinc-200'}
       // style={{backgroundImage:`url(${bgCoffe.src})`}}
-      >{children}</body>
+      >
+        <Toastify />
+        {children}
+      </body>
 
     </html>
   );
