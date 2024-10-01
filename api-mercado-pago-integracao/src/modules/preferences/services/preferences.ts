@@ -34,9 +34,9 @@ export default class PreferenceService {
       
         additional_info: `Um incentivo ao desenvolvedor Avelino, tipos de incentivo: ${items.map(item => item.title).join(", ")}`,
         back_urls: {
-          success: 'https://www.your-site.com/success',
-          failure: 'https://www.your-site.com/failure',
-          pending: 'https://www.your-site.com/pending',
+          success: 'http://localhost:3000/payment/sucess',
+          failure: 'http://localhost:3000/payment/failure',
+          pending: 'http://localhost:3000/payment/pending',
         },
         auto_return: 'approved',
       },

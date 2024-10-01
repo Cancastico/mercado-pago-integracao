@@ -124,3 +124,12 @@ export declare type PaymentMethodDataAuthentication = {
 export declare type TransactionDetailsRequest = {
     financial_institution?: string;
 };
+
+
+export {};
+
+declare global {
+  interface Window {
+    MercadoPago: any;
+  }
+}

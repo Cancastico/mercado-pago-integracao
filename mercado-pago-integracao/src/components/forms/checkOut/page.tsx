@@ -4,6 +4,7 @@ import { PreferenceResponse } from '@/models/preference';
 import PaymentCreate from '@/services/fetchs/payments/create';
 import PreferenceCreate from '@/services/fetchs/preference/create';
 import { initMercadoPago, Payment } from '@mercadopago/sdk-react';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 
 type Props = {
@@ -13,7 +14,7 @@ type Props = {
 const Checkout = ({ item }: Props) => {
   const [preference, setPreference] = useState<PreferenceResponse>();
   const [isLoading, setIsLoading] = useState(true);
-  const [paymentData, setPaymentData] = useState<any>(null);
+  const [paymentData, setPaymentData] = useState<PaymentData | null>(null);
 
   // Inicializar MercadoPago com a chave pública
   initMercadoPago(process.env.NEXT_PUBLIC_KEY!, { locale: 'pt-BR' });
@@ -60,12 +61,17 @@ const Checkout = ({ item }: Props) => {
       return (
         <div className="flex flex-col items-center">
           <h2 className="text-xl font-semibold mb-4">Pagamento via PIX</h2>
-          <img src={paymentData.point_of_interaction.transaction_data.qr_code_base64} alt="QR Code PIX" />
+          <Image
+            src={`data:image/png;base64,${paymentData.point_of_interaction.transaction_data.qr_code_base64}`}
+            width={300}
+            height={300}
+            alt="QR Code PIX"
+          />
           <p className="mt-4 text-gray-700">
             Escaneie o QR code acima com o seu aplicativo bancário para realizar o pagamento.
           </p>
           <p className="mt-2 text-gray-700">Ou copie o código abaixo:</p>
-          <p className="mt-2 font-mono text-gray-800 bg-gray-100 p-2 rounded">
+          <p className="mt-2 font-mono text-gray-800 bg-gray-100 p-2 rounded break-all">
             {paymentData.point_of_interaction.transaction_data.qr_code}
           </p>
         </div>
@@ -85,22 +91,39 @@ const Checkout = ({ item }: Props) => {
   return (
     <Payment
       initialization={{
-        preferenceId: preference.id, // Usar apenas o preferenceId
+        amount: item.value,
+        preferenceId: preference.id,
       }}
-      customization={{ paymentMethods: { creditCard: 'all', bankTransfer: 'all', maxInstallments: 1 } }}
+      customization={{
+        paymentMethods: {
+          bankTransfer: "all",
+          creditCard: "all",
+          maxInstallments:1
+        },
+        
+      }}
+      onReady={() => { }}
       onSubmit={async (param) => {
         try {
-          const paymentResponse = await PaymentCreate({
+          const paymentResponse = (await PaymentCreate({
             installments: param.formData.installments,
             issuer_id: parseInt(param.formData.issuer_id),
             payer: param.formData.payer,
             payment_method_id: param.formData.payment_method_id,
             transaction_amount: param.formData.transaction_amount,
             token: param.formData.token,
-          });
+          })).data;
 
-          // Salvar os dados do pagamento para mostrar o QR code ou confirmação
-          setPaymentData(paymentResponse?.data);
+          // Verifica o status do pagamento
+          if (paymentResponse.payment.status === 'approved' || param.formData.payment_method_id !== 'pix') {
+            setPaymentData(paymentResponse!.payment);
+          } else if (param.formData.payment_method_id === 'pix') {
+            // PIX precisa de confirmação adicional
+            setPaymentData({
+              ...paymentResponse.payment,
+              payment_method_id: 'pix',
+            });
+          }
         } catch (error) {
           console.error('Erro ao processar o pagamento:', error);
         }

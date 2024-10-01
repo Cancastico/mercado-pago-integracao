@@ -1,6 +1,7 @@
 import React from 'react';
 
 const SuccessPage = () => {
+
   return (
     <div className="p-8 bg-green-100">
       <h1 className="text-2xl font-bold text-green-700">Pagamento Aprovado!</h1>
