@@ -8,10 +8,10 @@ export default function Page() {
 
   return (
     <section className="p-5 flex gap-5 justify-center">
-      <div className="w-1/2 bg-white rounded-lg">
+      <div className="w-1/2 bg-white rounded-xl">
         <Checkout item={data} />
       </div>
-      <div className="w-1/3 bg-white rounded-lg h-fit py-6 p-8">
+      <div className="w-1/3 bg-white rounded-xl h-fit">
         <OptionInfoCard data={data} />
       </div>
     </section>
