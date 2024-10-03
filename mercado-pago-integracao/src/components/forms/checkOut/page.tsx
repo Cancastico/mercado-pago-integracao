@@ -73,6 +73,8 @@ const Checkout = ({ item }: Props) => {
         paymentMethods: {
           bankTransfer: "all",
           creditCard: "all",
+          debitCard:"all",
+          types:{included:['creditCard','bank_transfer', 'debitCard']}
         },
 
       }}
