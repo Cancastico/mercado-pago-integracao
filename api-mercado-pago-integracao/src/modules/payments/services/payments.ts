@@ -2,7 +2,6 @@ import MercadoPagoConfig, { Payment } from "mercadopago";
 import { PaymentCreateData, PaymentCreateRequest } from "mercadopago/dist/clients/payment/create/types";
 import { ErrorResponse } from "../../../middlewares/errorMiddleware/erroMiddleware";
 
-
 export default class PaymentService {
   private client;
 
