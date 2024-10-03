@@ -1,15 +1,13 @@
 "use client"
 
-import { Dispatch, SetStateAction, useState } from "react"
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card"
-import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
-import { Button } from "@/components/ui/button"
-import Image, { StaticImageData } from "next/image"
-import pingado from "@/../public/pingado.png"
 import comleite from "@/../public/comleite.png"
 import gourmet from "@/../public/gourmet.png"
-import { CoffeeIcon } from "lucide-react"
+import pingado from "@/../public/pingado.png"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Option } from "@/models/option"
+import Image from "next/image"
 
 type Props = {
   selectedOption: Option,
@@ -28,7 +26,6 @@ export default function PayMeCoffe({ selectedOption, setSelectedOption, nextStep
       <CardHeader>
         <CardTitle className=" font-semibold text-3xl flex flex-row gap-3 items-center">
           Pagamentos
-          {/* <CoffeeIcon size={32} /> */}
         </CardTitle>
         <CardDescription>Escolha sua opção.</CardDescription>
       </CardHeader>
@@ -65,7 +62,6 @@ export default function PayMeCoffe({ selectedOption, setSelectedOption, nextStep
         </Select>
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-2">
-            {/* <CoffeeIcon className="h-6 w-6 text-primary" /> */}
             <span className="font-medium">Você selecionou: {selectedOption.label}</span>
           </div>
           <Button onClick={nextStep} variant="outline" className="shrink-0 bg-black hover:bg-black/80 text-white hover:text-white">
