@@ -68,15 +68,22 @@ const Checkout = ({ item }: Props) => {
       initialization={{
         amount: item.value,
         preferenceId: preference.id,
+        items:{
+          itemsList:[{
+            name:item.label,
+            units:1,
+            value:item.value,
+            description:item.description,
+          }],
+          totalItemsAmount:1,
+        }
       }}
       customization={{
         paymentMethods: {
           bankTransfer: "all",
           creditCard: "all",
-          debitCard:"all",
-          types:{included:['creditCard','bank_transfer', 'debitCard']}
+          types:{included:['creditCard','bank_transfer']}
         },
-
       }}
       onReady={() => { }}
       onSubmit={async (param) => {

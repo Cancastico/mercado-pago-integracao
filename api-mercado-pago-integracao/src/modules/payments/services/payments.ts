@@ -1,6 +1,7 @@
 import MercadoPagoConfig, { Payment } from "mercadopago";
 import { PaymentCreateData, PaymentCreateRequest } from "mercadopago/dist/clients/payment/create/types";
 import { ErrorResponse } from "../../../middlewares/errorMiddleware/erroMiddleware";
+import { uuid } from "uuidv4";
 
 export default class PaymentService {
   private client;
@@ -16,6 +17,9 @@ export default class PaymentService {
       const payment = new Payment(this.client);
       const paymentData: PaymentCreateData = {
         body: {
+          external_reference:uuid(),
+          notification_url:'https://api-mercado-pago-integracao.vercel.app/',
+          statement_descriptor:'Doação para Avelino',
           installments,
           issuer_id,
           payer,

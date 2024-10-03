@@ -17,9 +17,9 @@ type Props = {
 export default function PayMeCoffe({ selectedOption, setSelectedOption, nextStep }: Props) {
 
   const options: Option[] = [
-    { id: 1, label: 'Expresso', description: 'O café indispensavel da padóca de SP.', value: 0.02, image: pingado },
-    { id: 2, label: 'Com leite', description: 'O bom e velho classico aconchegante.', value: 0.05, image: comleite },
-    { id: 3, label: 'Gourmet', description: 'Aquele café especial pra animar seu dia.', value: 0.10, image: gourmet }
+    { id: 1, label: 'Expresso', description: 'O café indispensavel da padóca de SP.', value: 1, image: pingado },
+    { id: 2, label: 'Com leite', description: 'O bom e velho classico aconchegante.', value: 3, image: comleite },
+    { id: 3, label: 'Gourmet', description: 'Aquele café especial pra animar seu dia.', value: 5, image: gourmet }
   ]
   return (
     <Card className="w-full max-w-md mx-auto">

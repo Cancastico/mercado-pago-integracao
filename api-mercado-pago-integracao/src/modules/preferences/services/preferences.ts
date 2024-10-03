@@ -1,6 +1,7 @@
 import MercadoPagoConfig, { Preference } from "mercadopago";
 import { Items } from "mercadopago/dist/clients/commonTypes";
 import { PreferenceCreateData } from "mercadopago/dist/clients/preference/create/types";
+import { uuid } from "uuidv4";
 
 export default class PreferenceService {
   private client: MercadoPagoConfig;
@@ -23,7 +24,6 @@ export default class PreferenceService {
 
     const preference: PreferenceCreateData = {
       body: {
-
         items: items.map((item, index) => ({
           id: index.toString(),
           title: item.title,
