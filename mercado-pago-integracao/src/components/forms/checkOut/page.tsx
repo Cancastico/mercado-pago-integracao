@@ -73,7 +73,6 @@ const Checkout = ({ item }: Props) => {
         paymentMethods: {
           bankTransfer: "all",
           creditCard: "all",
-          maxInstallments: 1
         },
 
       }}
