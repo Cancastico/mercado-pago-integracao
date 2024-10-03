@@ -52,17 +52,4 @@ export default class PreferenceController {
       throw new ErrorResponse(error.code, error.message);
     }
   }
-
-  // async update(req: Request, res: Response) {
-  //   try {
-  //     const id = req.params.id;
-  //     if (!id) {
-  //       throw new Error('Id is invalid')
-  //     }
-  //     return res.status(200).json(await preferenceService.(id));
-
-  //   } catch (error: any) {
-  //     throw new ErrorResponse(error.code, error.message);
-  //   }
-  // }
 }

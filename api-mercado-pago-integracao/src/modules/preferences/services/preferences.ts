@@ -31,14 +31,8 @@ export default class PreferenceService {
           quantity: item.quantity,
           currency_id: "BRL" // Adicionar a moeda, importante para garantir que o valor seja em reais.
         })),
-      
+
         additional_info: `Um incentivo ao desenvolvedor Avelino, tipos de incentivo: ${items.map(item => item.title).join(", ")}`,
-        back_urls: {
-          success: 'http://localhost:3000/payment/sucess',
-          failure: 'http://localhost:3000/payment/failure',
-          pending: 'http://localhost:3000/payment/pending',
-        },
-        auto_return: 'approved',
       },
     };
 
@@ -53,7 +47,7 @@ export default class PreferenceService {
     }
 
     const preference = new Preference(this.client);
-    return preference.get({preferenceId});
+    return preference.get({ preferenceId });
   }
 
   // Buscar todas as preferências
@@ -61,10 +55,4 @@ export default class PreferenceService {
     const preference = new Preference(this.client);
     return preference.search();
   }
-
-  // Atualizar uma preferência (comentado pois não está em uso)
-  // update(preferenceId: number) {
-  //   const preference = new Preference(this.client);
-  //   return preference.update({ id: preferenceId });
-  // }
 }
