@@ -16,7 +16,9 @@ const Checkout = ({ item }: Props) => {
   const [paymentData, setPaymentData] = useState<PaymentData | null>(null);
 
   // Inicializar MercadoPago com a chave pública
-  initMercadoPago(process.env.NEXT_PUBLIC_KEY!, { locale: 'pt-BR' });
+  useEffect(() => {
+    initMercadoPago(process.env.NEXT_PUBLIC_KEY!, { locale: 'pt-BR' });
+  }, []);
 
   // Criar a preferência de pagamento quando o item mudar
   useEffect(() => {
@@ -62,27 +64,27 @@ const Checkout = ({ item }: Props) => {
     );
   }
 
-  //Bloco de Pagamento seja pix ou cartão
+  // Bloco de Pagamento seja pix ou cartão
   return (
     <Payment
       initialization={{
         amount: item.value,
         preferenceId: preference.id,
-        items:{
-          itemsList:[{
-            name:item.label,
-            units:1,
-            value:item.value,
-            description:item.description,
+        items: {
+          itemsList: [{
+            name: item.label,
+            units: 1,
+            value: item.value,
+            description: item.description,
           }],
-          totalItemsAmount:1,
+          totalItemsAmount: 1,
         }
       }}
       customization={{
         paymentMethods: {
           bankTransfer: "all",
           creditCard: "all",
-          types:{included:['creditCard','bank_transfer']}
+          types: { included: ['creditCard', 'bank_transfer'] }
         },
       }}
       onReady={() => { }}
@@ -99,7 +101,7 @@ const Checkout = ({ item }: Props) => {
 
           // Verifica o status do pagamento
           if (paymentResponse.payment.status === 'approved' || param.formData.payment_method_id !== 'pix') {
-            setPaymentData(paymentResponse!.payment);
+            setPaymentData(paymentResponse.payment);
           } else if (param.formData.payment_method_id === 'pix') {
             // PIX precisa de confirmação adicional
             setPaymentData({
