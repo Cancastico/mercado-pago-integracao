@@ -10,7 +10,7 @@ const router = Router();
 router.use('/payments', paymentRouter);
 router.use('/preferences', preferenceRouter);
 router.use('/methods', paymentMethodsRouter);
-router.get('/', (req: Request, res: Response) => { 
+router.get('/', (_req: Request, res: Response) => { 
   return res.status(200).json({message:'Funcionando Corretamente'})
 })
 
