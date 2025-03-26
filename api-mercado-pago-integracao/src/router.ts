@@ -11,7 +11,7 @@ router.use('/payments', paymentRouter);
 router.use('/preferences', preferenceRouter);
 router.use('/methods', paymentMethodsRouter);
 router.get('/', (req: Request, res: Response) => { 
-  return res.status(200).json({message:'Funfando'})
+  return res.status(200).json({message:'Funcionando Corretamente'})
 })
 
 export { router };
